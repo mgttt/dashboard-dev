@@ -2,10 +2,13 @@
   <div class="min-h-screen bg-gray-50">
     <div class="max-w-[1600px] mx-auto px-2 py-2">
       <div class="flex items-center gap-4 mb-2">
-        <SearchBar @search="setSearchQuery" />
+        <SearchBar 
+          :value="searchQuery"
+          @search="setSearchQuery" 
+        />
         <CategoryFilter
-          :selected-category="selectedCategory"
           @category-change="setSelectedCategory"
+          @search="setSearchQuery"
         />
       </div>
       
@@ -30,17 +33,16 @@ import MarketTable from './components/MarketTable.vue';
 import TradingChart from './components/TradingChart.vue';
 import { mockMarketData } from './data/mockData';
 import type { MarketCategory } from './types/market';
+import { filterMarketData } from './utils/filterUtils';
 
-const searchQuery = ref('');
+const searchQuery = ref('近期交易量暴涨的主流币');
 const selectedCategory = ref<MarketCategory>('crypto');
 
 const filteredData = computed(() => {
-  return mockMarketData
-    .filter(market => market.category === selectedCategory.value)
-    .filter(market =>
-      market.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      market.symbol.toLowerCase().includes(searchQuery.value.toLowerCase())
-    );
+  return filterMarketData(mockMarketData, {
+    category: selectedCategory.value,
+    searchQuery: searchQuery.value
+  });
 });
 
 const setSearchQuery = (query: string) => {

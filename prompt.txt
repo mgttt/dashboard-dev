@@ -1,0 +1,29 @@
+Create a modern financial dashboard that provides real-time market insights across multiple asset classes (cryptocurrencies, US stocks, HK stocks, and US ETFs). The dashboard should feature:
+
+Core Features:
+- Interactive data filtering and search capabilities
+- Category-based navigation between different market segments
+- Real-time market data visualization with charts
+- Responsive table views for detailed market information
+
+Technical Requirements:
+- Vue 3 with TypeScript for robust type safety
+- Tailwind CSS for responsive and modern UI design
+- ECharts for professional-grade financial charts
+- Component-based architecture for maintainability
+- Modular file structure with clear separation of concerns
+- Type-safe data models and utilities
+- Date formatting utilities for consistent time display
+
+Design Principles:
+- Clean and intuitive user interface
+- Responsive layout that works across all devices
+- Clear visual hierarchy for data presentation
+- Consistent styling and component patterns
+- Performance-optimized data handling and rendering
+
+The dashboard should follow best practices for code organization:
+- Small, focused component files
+- Clear separation of data models and types
+- Reusable utility functions
+- Modular and maintainable architecture

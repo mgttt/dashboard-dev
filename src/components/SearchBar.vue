@@ -5,8 +5,9 @@
       <input
         type="text"
         class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        placeholder="过滤词：近七天交易高的数字货币"
+        :value="value"
         @input="handleInput"
+        placeholder="输入关键词搜索..."
       />
     </div>
   </div>
@@ -14,6 +15,10 @@
 
 <script setup lang="ts">
 import { Search } from 'lucide-vue-next';
+
+defineProps<{
+  value: string
+}>();
 
 const emit = defineEmits<{
   (e: 'search', query: string): void

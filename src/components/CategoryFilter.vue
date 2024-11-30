@@ -1,36 +1,47 @@
 <template>
-  <div class="flex gap-2">
-    <button
-      v-for="{ value, label } in categories"
-      :key="value"
-      @click="() => emit('category-change', value)"
-      :class="[
-        'px-4 py-1.5 rounded-lg text-sm font-medium transition-colors',
-        selectedCategory === value
-          ? 'bg-blue-500 text-white'
-          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-      ]"
-    >
-      {{ label }}
-    </button>
+  <div class="flex gap-4 items-center">
+    <div class="flex gap-3">
+      <a
+        v-for="category in categories"
+        :key="category.value"
+        href="#"
+        @click.prevent="() => handleCategoryClick(category)"
+        class="text-sm text-blue-600 hover:text-blue-800 hover:underline"
+      >
+        #{{ category.label }}
+      </a>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { MarketCategory } from '../types/market';
 
-const props = defineProps<{
-  selectedCategory: MarketCategory
-}>();
-
 const emit = defineEmits<{
+  (e: 'search', query: string): void
   (e: 'category-change', category: MarketCategory): void
 }>();
 
 const categories = [
-  { value: 'crypto' as const, label: '数币' },
-  { value: 'us-stocks' as const, label: '美股' },
-  { value: 'hk-stocks' as const, label: '港股' },
-  { value: 'us-etf' as const, label: '美ETF' },
+  { 
+    value: 'us-etf' as const, 
+    label: '美ETF',
+    searchPhrase: '美股ETF流动性波动性最大的20支'
+  },
+  { 
+    value: 'us-stocks' as const, 
+    label: '美股',
+    searchPhrase: '科技股成交量最活跃的大盘股'
+  },
+  { 
+    value: 'crypto' as const, 
+    label: '数币',
+    searchPhrase: '近期交易量暴涨的主流币'
+  }
 ];
+
+const handleCategoryClick = (category: typeof categories[0]) => {
+  emit('category-change', category.value);
+  emit('search', category.searchPhrase);
+};
 </script>
